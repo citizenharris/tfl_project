@@ -3,5 +3,7 @@ source "https://rubygems.org"
 
 gem 'sinatra'
 gem 'pry'
-gem 'TimsLondon', git: 'https://github.com/geraudmathe/Tfl-apis.git'
+gem 'awesome_print'
+gem 'google_maps_service'
 gem 'tfl', git: 'https://github.com/jameshill/tfl.git'
+gem 'mongoid'
