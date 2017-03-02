@@ -11,9 +11,28 @@
   <body>
     <h3>Bike Accidents Mapped</h3>
     <div id="map"></div>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlL66lBf7uecfyVf-zb9lRIQNfQHRPltQ&callback=initMap">
+    </script>
     <script>
 
       function initMap() {
+
+      	var locations = []
+
+      	<% @incidents.each do |acc| %>
+	     locations.push (
+	        new google.maps.Marker({
+            		position: {
+	        			lat: <%= acc[:lat] %>, 
+	        			lng: <%= acc[:lon] %>
+	        		}
+          	})
+      	);
+	    <% end %>
+	      
 
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 10,
@@ -21,23 +40,9 @@
         });
         
 
-        var markerCluster = new MarkerClusterer(map, markers,
-            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+		var markerCluster = new MarkerClusterer(map, locations,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});    
       }
-      var locations = [];
-      <& @incidents.each do |acc| &>
-	      locations.push ( {latlng: new google.maps.LatLng(<&= @incidents[acc].lat %>, <&= @incidents[acc].lon %>)});
-      <% end %>
-
-      for(var i=0,i<locations.length;i++ ) {
-      	var marker = new google.maps.Marker({position: locations[i].latlng, map:map})
-      };
-
-    </script>
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlL66lBf7uecfyVf-zb9lRIQNfQHRPltQ&callback=initMap">
     </script>
   </body>
 </html>

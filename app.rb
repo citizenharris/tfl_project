@@ -9,7 +9,6 @@ require './lib/incident.rb'
 Mongoid.load!('./mongoid.yml')
 
 get '/' do
-  # binding.pry
   @incidents = Incident.where('vehicles.0.type' => 'PedalCycle')
   erb :index
 end
