@@ -1,0 +1,6 @@
+development:
+  clients:
+    default:
+      database: tfl_project
+      hosts:
+        - localhost:27017
