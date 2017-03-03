@@ -1,30 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
-       #map {
-        height: 500px;
-        width: 100%;
-       }
-
-       #floating-panel {
-        position: absolute;
-        top: 10px;
-        left: 25%;
-        z-index: 5;
-        background-color: #fff;
-        padding: 5px;
-        border: 1px solid #999;
-        text-align: center;
-        font-family: 'Roboto','sans-serif';
-        line-height: 30px;
-        padding-left: 10px;
-      }
-
-    </style>
+  <link href="https://fonts.googleapis.com/css?family=Quicksand:300|Raleway:100" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
-    <h3>Bike Accidents Mapped</h3>
+    <h2>Bike Accidents Mapped</h2>
+      
+      <div id="map"></div>
       
       <div id="floating-panel">
         <button onclick="toggleMarkerClusters()">Toggle Marker Clusters</button>
@@ -34,7 +17,6 @@
         <button onclick="changeOpacity()">Change Opacity</button>
       </div>
 
-      <div id="map"></div>
   </body> 
   <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
   </script>
@@ -48,8 +30,8 @@
     function initMap() {
 
         map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 10,
-          center: {lat: 51.5287718, lng: -0.2416817}
+          zoom: 11,
+          center: {lat: 51.5003557, lng: -0.1184281}
         });
 
         heatmap = new google.maps.visualization.HeatmapLayer({
@@ -113,9 +95,9 @@
     
     function getPoints() {
         return [
-        <% @incidents.each do |acc| %> 
-            new google.maps.LatLng(<%= acc[:lat] %>, <%= acc[:lon] %>),
-        <% end %>
+          <% @incidents.each do |acc| %> 
+              new google.maps.LatLng(<%= acc[:lat] %>, <%= acc[:lon] %>),
+          <% end %>
         ]
     }
   </script>
