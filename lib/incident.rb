@@ -11,7 +11,7 @@ class Incident
   field :casualties, type: Array
   field :vehicles, type: Array
 
-  # validates :tfl_id, presence: true
+  # validates :id, presence: true
   # validates :lat, presence: true
   # validates :lon, presence: true
   # validates :location, presence: true
