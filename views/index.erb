@@ -12,7 +12,7 @@
     <input id="destination-input" class="controls" type="text" placeholder="Enter a destination location">
 
     <div id="floating-panel">
-      <button onclick="toggleMarkerClusters()">Toggle Marker Clusters</button>
+      <button id="clusterbutton" onclick="toggleMarkerClusters()">Toggle Marker Clusters</button>
       <button onclick="toggleHeatmap()">Toggle Heat Map</button>
       <button onclick="changeGradient()">Change Gradient</button>
       <button onclick="changeRadius()">Change Radius</button>
@@ -20,16 +20,37 @@
     </div>
  
     <div id="map"></div>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>
     
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlL66lBf7uecfyVf-zb9lRIQNfQHRPltQ&libraries=visualization,places&callback=initMap">
-    </script>
+    </script> 
     <script>
 
       var map, heatmap, markerCluster;
+      var markers = [];
+      var shown = true;
+
+      var clusterStyles = [
+        {
+          url: 'https://tutorcruncher.com/static/img/m1.png',
+          height: 50,
+          width: 50
+        },
+        {
+          url: 'https://tutorcruncher.com/static/img/m2.png',
+          height: 50,
+          width: 50
+        },
+        {
+          url: 'https://tutorcruncher.com/static/img/m3.png',
+          height: 50,
+          width: 50
+        }
+    ];
+
       function initMap() {
         
         map = new google.maps.Map(document.getElementById('map'), {
@@ -42,31 +63,35 @@
           map: map
         });
 
-        markerCluster = new MarkerClusterer(map, markers,
-            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 
-    
+        // <% @incidents.each do |acc| %>
+        //   var marker = new google.maps.Marker({
+        //       map: map,
+        //       position: {
+        //           lat: <%= acc[:lat] %>, 
+        //           lng: <%= acc[:lon] %>
+        //       }
+        //     })
+        //   document.getElementById('')
+        //   markers.push(marker)
+        // <% end %>
 
-      var locations = []
-
-      <% @incidents.each do |acc| %>
-        locations.push (
-          new google.maps.Marker({
-                  position: {
-                      lat: <%= acc[:lat] %>, 
-                      lng: <%= acc[:lon] %>
-                  }
-          })
-        );
-      <% end %>
+        markerCluster = new MarkerClusterer(map, markers, {
+          styles: clusterStyles,
+          gridSize: 50
+        });
       }
 
       function toggleMarkerClusters() {
-      markerCluster.setMap(markerCluster.getMap() ? null : map);
+        for (var i = 0; i < markers.length; i++) {
+          var marker = markers[i];
+          marker.setVisible(false)
+        }
+        markerCluster.repaint()
       }
       
       function toggleHeatmap() {
-      heatmap.setMap(heatmap.getMap() ? null : map);
+        heatmap.setMap(heatmap.getMap() ? null : map);
       }
 
       function changeGradient() {

@@ -27,7 +27,7 @@ end
 # @bike_accidents = []
 
 # data.each do |obj|
-#   @bike_accidents.push(data[obj]) if data[obj]["vehicles"][0]["type"] == "PedalCycle"
+#   @bike_accidents.push(obj) if obj["vehicles"][0]["type"] == "PedalCycle"
 #   Incident.create! @bike_accidents
 # end
 
