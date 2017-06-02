@@ -4,6 +4,6 @@
 
 After cloning this repo 
 
-```
+```bash
 bundle install
 ```
